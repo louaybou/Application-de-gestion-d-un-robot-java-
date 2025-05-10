@@ -4,8 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-
-public abstract class robot {
+public abstract class Robot {
     protected String id;
     protected int x, y;
     protected int energie;
@@ -13,7 +12,7 @@ public abstract class robot {
     protected boolean enMarche;
     protected List<String> historiqueActions;
 
-    public robot(String id, int x, int y, int energie, int heuresUtilisation) {
+    public Robot(String id, int x, int y, int energie, int heuresUtilisation) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -75,8 +74,8 @@ public abstract class robot {
     public void recharger(int quantite) {
         energie = Math.min(100, energie + quantite);
     }
-    public abstract void deplacer(int x, int y);
-    public abstract void effectuerTache();
+    public abstract void deplacer(int x, int y) throws RobotException;
+    public abstract void effectuerTache() throws RobotException;
     public String getHistorique() {
         String historique = "";
         for (String action : historiqueActions) {

@@ -8,7 +8,9 @@ public class RobotLivraison extends RobotConnecte {
     private boolean enLivraison;
     static final int ENERGIE_LIVRAISON = 15;
     static final int ENERGIE_CHARGEMENT  = 5;
-
+    private int batterieSolaire = 0;
+    private int distanceMatin = 0;
+    
     public RobotLivraison(String id, int x, int y) {
         super(id, x, y);
         this.colisActuel = "0";
@@ -57,19 +59,26 @@ public void FaireLivraison(int Destx, int Desty) throws RobotException {
     enLivraison = false;
     ajouterHistorique("Livraison terminée à " + destination);
 }
+@Override
 public void deplacer(int x, int y) throws RobotException {
-    double distance = Math.sqrt((Math.abs(this.x - x))^2 + (Math.abs(this.y - y))^2);
-    if(distance>100){
+    int heureActuelle = java.time.LocalTime.now().getHour(); 
+    double distance = Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2));
+    if (distance > 100) {
         throw new RobotException("Déplacement impossible : distance trop grande.");
     }
     verifierMaintenance();
-    int energieutilisee=(int)Math.round((distance*0.3)+0.5);
+    int energieutilisee = (int) Math.ceil(distance * 0.3);
     verifierEnergie(energieutilisee);
+
+    if (heureActuelle >= 10 && heureActuelle < 17) {
+        distanceMatin += distance;
+    }
+
     this.x = x;
     this.y = y;
     this.heuresUtilisation += Math.max(1, (int) distance / 10);
     consommerEnergie(energieutilisee);
-    ajouterHistorique("Déplacement vers (" + x + ", " + y + ")");
+    ajouterHistorique("Déplacement vers (" + x + ", " + y + "), énergie consommée : " + energieutilisee);
 }
 
 public void chargerColis(String destination) throws RobotException {
@@ -95,5 +104,18 @@ public String toString() {
         connecte ? "Oui" : "Non"
     );
 }
-}  
+
+public int getBatterieSolaire() {
+    return batterieSolaire;
+}
+
+public void setBatterieSolaire(int valeur) {
+    this.batterieSolaire = Math.max(0, valeur);
+}
+
+public void rechargerSolaireMatin() {
+    batterieSolaire += (int) (distanceMatin * 0.1);
+    distanceMatin = 0; 
+}
+}
 

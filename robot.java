@@ -11,6 +11,7 @@ public abstract class Robot {
     protected int heuresUtilisation;
     protected boolean enMarche;
     protected List<String> historiqueActions;
+    protected int energieConsommee = 0;
 
     public Robot(String id, int x, int y, int energie, int heuresUtilisation) {
         this.id = id;
@@ -69,7 +70,8 @@ public abstract class Robot {
         System.out.println(id + " est arrêté.");
     }
     public void consommerEnergie(int quantite){
-        energie = Math.max(0, energie - quantite);;
+        energie = Math.max(0, energie - quantite);
+        energieConsommee += quantite; // Ajout suivi écologique
     }
     public void recharger(int quantite) {
         energie = Math.min(100, energie + quantite);
@@ -83,19 +85,25 @@ public abstract class Robot {
         }
         return historique;
     }
+    public int getEnergieConsommee() {
+        return energieConsommee;
+    }
+    public double getEmpreinteCarbone() {
+        return energieConsommee * 0.05;
+    }
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + " [ID : " + id + 
                ", Position : (" + x + "," + y + "), " +
                "Énergie : " + energie + "%, Heures : " + heuresUtilisation + "]";
     }}
-    
-    
-    
 
-    
-   
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+

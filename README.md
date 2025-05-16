@@ -2,7 +2,7 @@
 # Projet JAVA - Application de Gestion de Robots
 
 ## 📌 Aperçu
-Ce projet est une application Java de gestion de robots, développée dans le cadre académique 2024/2025 à l'INSA Tunis. L'application intègre des fonctionnalités de modularité, écologie, et une interface Swing pour gérer des robots connectés spécialisés dans la livraison, avec un focus sur l'empreinte carbone et l'optimisation énergétique.
+Ce projet est une application Java de gestion de robots. L'application intègre des fonctionnalités de modularité, écologie, et une interface Swing pour gérer des robots connectés spécialisés dans la livraison, avec un focus sur l'empreinte carbone et l'optimisation énergétique.
 
 ---
 
@@ -61,17 +61,3 @@ Ce projet est une application Java de gestion de robots, développée dans le ca
   - Historique des émissions de CO2.  
 
 ---
-
-## 📦 Structure du Code
-```plaintext
-src/
-├── Robot.java                # Classe abstraite Robot
-├── RobotConnecte.java        # Robot connecté au réseau
-├── RobotLivraison.java       # Robot spécialisé en livraison
-├── Connectable.java          # Interface pour connexion
-├── Exceptions/               # Exceptions personnalisées
-│   ├── EnergieInsuffisanteException.java
-│   └── MaintenanceRequiseException.java
-└── Interface/                # Interface Swing
-    ├── MainWindow.java       # Fenêtre principale
-    └── EcoStatsPanel.java    # Panneau des statistiques
